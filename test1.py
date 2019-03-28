@@ -25,7 +25,7 @@ gyro.mode = GyroSensor.MODE_GYRO_ANG
 
 color_sensor = ColorSensor(INPUT_3)
 color_sensor.mode = 'COL-COLOR'
-# definr color sensor;
+# define color sensor;
 # put color sensor in COL-COLOR mode.
 
 colors = ('red', 'blue')
