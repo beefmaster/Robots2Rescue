@@ -7,10 +7,7 @@ in one-script format.
 from ev3dev2.motor import (
     MoveSteering, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C)
 from ev3dev2.sensor import INPUT_1, INPUT_2,INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import TouchSensor
-from ev3dev2.sensor.lego import UltrasonicSensor
-from ev3dev2.sensor.lego import GyroSensor
-from ev3dev2.sensor.lego import ColorSensor
+from ev3dev2.sensor.lego import TouchSensor, UltrasonicSensor, GyroSensor, ColorSensor
 
 # Imports from plugin.
 
