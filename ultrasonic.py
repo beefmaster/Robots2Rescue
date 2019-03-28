@@ -1,22 +1,38 @@
 #!/usr/bin/env python3
-from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_D, SpeedPercent, MoveTank
-from ev3dev2.sensor import INPUT_4
+"""
+Use robot to reposition cuboid.
+
+This script is a simple demonstration of the ultrasonic sensor and medium
+motor.
+"""
+
+from ev3dev2.motor import (
+    MoveSteering, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C)
 from ev3dev2.sensor.lego import UltrasonicSensor
-from ev3dev2.led import Leds
+from time import sleep
 
-# Program to control movement of motors with Ultrasonic sensor
+motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
+medium_motor = MediumMotor(OUTPUT_A)
+ultrasonic_sensor = UltrasonicSensor()
 
-tank_drive = MoveTank(OUTPUT_A, OUTPUT_D)
-us = UltrasonicSensor(INPUT_4)
+# Start robot moving forward
+motor_pair.on(steering=0, speed=10)
 
-us.mode = 'US-DIST-CM'
+# Wait until robot less than 3.5cm from cuboid
+while ultrasonic_sensor.distance_centimeters > 3.5:
+    sleep(0.01)
 
-while True:
-    # if distance <= 10cm turn robot left
-    if us.distance_centimeters <= 13:
-        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 1)
-        tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 1)
-        tank_drive.on_for_rotations(SpeedPercent(25), SpeedPercent(-25), 2/3)
-    # continue going straight
-    else:
-        tank_drive.on(SpeedPercent(50), SpeedPercent(50))
+# Stop moving forward
+motor_pair.off()
+
+# Lower robot arm over cuboid
+medium_motor.on_for_degrees(speed=-10, degrees=90)
+
+# Drag cuboid backwards for 2 seconds
+motor_pair.on_for_seconds(steering=0, speed=-20, seconds=2)
+
+# Raise robot arm
+medium_motor.on_for_degrees(speed=10, degrees=90)
+
+# Move robot away from cuboid
+motor_pair.on_for_seconds(steering=0, speed=-20, seconds=2)
