@@ -7,7 +7,10 @@ in one-script format.
 from ev3dev2.motor import (
     MoveSteering, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C)
 from ev3dev2.sensor import INPUT_1, INPUT_2,INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import TouchSensor, UltrasonicSensor, GyroSensor, ColorSensor
+from ev3dev2.sensor.lego import TouchSensor
+from ev3dev2.sensor.lego import UltrasonicSensor
+from ev3dev2.sensor.lego import GyroSensor
+from ev3dev2.sensor.lego import ColorSensor
 
 # Imports from plugin.
 
@@ -22,7 +25,7 @@ gyro.mode = GyroSensor.MODE_GYRO_ANG
 
 color_sensor = ColorSensor(INPUT_3)
 color_sensor.mode = 'COL-COLOR'
-# define color sensor;
+# definr color sensor;
 # put color sensor in COL-COLOR mode.
 
 colors = ('red', 'blue')
@@ -47,6 +50,7 @@ while ultrasonic_sensor.distance_centimeters < 2.0:
         # drive back for 2 seconds;
         medium_motor.on_for_degrees(speed=10, degrees=90)
         # raise arm.
+        drivetrain.on(steering = 0, speed = -20)
 
     elif color_sensor.color == 2:
         # set this color to color of wall;
@@ -56,6 +60,23 @@ while ultrasonic_sensor.distance_centimeters < 2.0:
         # turn around
         drivetrain.on(steering=0, speed=20)
         # drive away at speed of 20
+
+drivetrain.on_for_seconds(steering = 100, speed = 20, seconds = 5)
+
+while drivetrain.on:
+    if color_sensor == 5:
+        # set this color to victim color;
+        medium_motor.on_for_degrees(speed=-10, degrees=90)
+        # lower arm;
+        drivetrain.on_for_seconds(steering=0, speed=-20, seconds=2)
+        # drive back for 2 seconds;
+        medium_motor.on_for_degrees(speed=10, degrees=90)
+        # raise arm.
+        drivetrain.on_for_seconds(steering = 0, speed = -20, seconds=5)
+    else :
+        drivetrain.on(steering = 0, speed = 0)
+      
+
 
 
 """
