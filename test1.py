@@ -50,6 +50,23 @@ while ultrasonic_sensor_front.distance_centimeters < 2.0:
         medium_motor.on_for_degrees(speed=10, degrees=90)
         # raise arm.
         drivetrain.on(steering = 0, speed = -20)
+        
+        drivetrain.on_for_seconds(steering = 100, speed = 20, seconds = 5)
+        #rotate and check if victim is picked up (for 5 seconds).
+
+        while drivetrain.on:
+            if color_sensor == 5:
+                # set this color to victim color;
+                medium_motor.on_for_degrees(speed=-10, degrees=90)
+      
+                drivetrain.on_for_seconds(steering=0, speed=-20, seconds=2)
+                # drive back for 2 seconds;
+                medium_motor.on_for_degrees(speed=10, degrees=90)
+                # raise arm.
+                drivetrain.on_for_seconds(steering = 0, speed = -20, seconds=5)
+            else :
+                drivetrain.on(steering = 0, speed = 0)
+        
 
     elif color_sensor.color == 7:
         # set this color to color of wall;
@@ -66,20 +83,7 @@ while ultrasonic_sensor_front.distance_centimeters < 2.0:
             drivetrain.on(steering = 0, speed = 20)
        
 
-drivetrain.on_for_seconds(steering = 100, speed = 20, seconds = 5)
 
-while drivetrain.on:
-    if color_sensor == 5:
-        # set this color to victim color;
-        medium_motor.on_for_degrees(speed=-10, degrees=90)
-        # lower arm;
-        drivetrain.on_for_seconds(steering=0, speed=-20, seconds=2)
-        # drive back for 2 seconds;
-        medium_motor.on_for_degrees(speed=10, degrees=90)
-        # raise arm.
-        drivetrain.on_for_seconds(steering = 0, speed = -20, seconds=5)
-    else :
-        drivetrain.on(steering = 0, speed = 0)
       
 
 
