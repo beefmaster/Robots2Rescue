@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
 """
 Test program 1 of R2R project;
 in one-script format.
-
 """
 from ev3dev2.motor import (OUTPUT_A, OUTPUT_B, OUTPUT_C, MediumMotor,
                            MoveSteering)
@@ -25,7 +23,7 @@ color_sensor.mode = 'COL-COLOR'
 # definr color sensor;
 # put color sensor in COL-COLOR mode.
 
-colors = ('red', 'brown')
+colors = ('red', 'white')
 # 0: No color   1: Black   2: Blue   3: Green   
 # 4: Yellow   5: Red   6: White   7: Brown
 
@@ -51,8 +49,9 @@ while ultrasonic_sensor_front.distance_centimeters < 2.0:
         # raise arm.
         drivetrain.on(steering = 0, speed = -20)
         
-        drivetrain.on_for_seconds(steering = 100, speed = 20, seconds = 5)
-        #rotate and check if victim is picked up (for 5 seconds).
+        drivetrain.on_for_seconds(steering = 100, speed = 20)
+        gyro.wait_until_angle_changed_by(360)
+        #rotate and check if victim is picked up (for 1 rotation).
 
         while drivetrain.on:
             if color_sensor == 5:
@@ -68,24 +67,20 @@ while ultrasonic_sensor_front.distance_centimeters < 2.0:
                 drivetrain.on(steering = 0, speed = 0)
         
 
-    elif color_sensor.color == 7:
-        # set this color to color of wall;
-        if ultrasonic_sensor_side.distance_centimeters < 2.0:
+    elif color_sensor.color == 6:
+        # set this color to color of wall (white);
+        if ultrasonic_sensor_side.distance_centimeters < 5.0:
             #RHS is wall; turn left, sterring = -100.
             drivetrain.on(steering = -100, speed = 20)
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 20)
 
-        elif ultrasonic_sensor_side.distance_centimeters > 2.0:
+        elif ultrasonic_sensor_side.distance_centimeters > 5.0:
             #RHS is path; turn right, steering = 100.
             drivetrain.on(steering = -100, speed = 20)
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 20)
        
-
-
-      
-
 
 
 
@@ -103,7 +98,6 @@ Robot would turn the direction that the sensor detects distance >2cm, or the oth
 drivetrain.on(steering=-100, speed=5)
 gyro.wait_until_angle_changed_by(90)
 drivetrain.off()
-
 # turn left 90 degrees using gyro sensor; 
 # to turn right, change steering to 100.
 """
