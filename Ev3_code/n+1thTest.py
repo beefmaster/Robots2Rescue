@@ -1,4 +1,4 @@
-!/usr/bin/env python3
+#!/usr/bin/env python3
 
 from ev3dev.ev3 import *
 from ev3dev2.motor import OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, MediumMotor, MoveSteering, SpeedPercent
@@ -19,12 +19,12 @@ drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
 
 
 while True:
-    if ultrasonic_sensor_front.distance_centimeters <= 5 and ultrasonic_sensor_side <= 5:
+    if ultrasonic_sensor_front.distance_centimeters <= 5 and ultrasonic_sensor_side.distance_centimeters <= 5:
         drivetrain.on(steering = -100, speed = 20)
         gyro.wait_until_angle_changed_by(90)
         drivetrain.on(steering = 0, speed = 0)
 
-    elif ultrasonic_sensor_front.distance_centimeters <= 5 and ultrasonic_sensor_side > 5:
+    elif ultrasonic_sensor_front.distance_centimeters <= 5 and ultrasonic_sensor_side.distance_centimeters > 5:
         drivetrain.on(steering = 100, speed = 10)
         gyro.wait_until_angle_changed_by(90)
         drivetrain.on(steering = 0, speed = 0)
