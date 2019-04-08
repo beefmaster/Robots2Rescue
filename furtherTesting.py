@@ -10,7 +10,7 @@ ultrasonic_sensor_front = UltrasonicSensor(INPUT_4)
 ultrasonic_sensor_side = UltrasonicSensor(INPUT_2)
 ultrasonic_sensor_front.mode = 'US-DIST-CM'
 ultrasonic_sensor_side.mode = 'US-DIST-CM'
-gyro = GyroSensor()
+gyro = GyroSensor(INPUT_1)
 gyro.mode = 'MODE_GYRO_ANG'
 
 drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
