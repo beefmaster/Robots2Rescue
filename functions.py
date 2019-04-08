@@ -50,3 +50,25 @@ def rotate_drive(drivetrain, gyro):
     drivetrain.on_for_seconds(steering = 100, speed = 20)
     gyro.wait_until_angle_changed_by(360)
     drivetrain.on(steering = 0, speed = 0)
+
+straight_drive(drivetrain)
+while True:
+    if ultrasonic_sensor_front.distance_centimeters <= 2.0:
+        stop_drive(drivetrain)
+        #stop robot if something is at front.
+
+        if ultrasonic_sensor_side.distance_centimeters <= 5.0:
+            left_turn(drivetrain, gyro)
+            straight_drive(drivetrain)
+            
+        elif ultrasonic_sensor_side.distance_centimeters > 5.0:
+            right_turn(drivetrain, gyro)
+            straight_drive(drivetrain)
+         
+    else:
+        straight_drive(drivetrain)
+        
+    # use with functions.
+
+
+
