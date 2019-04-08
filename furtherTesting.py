@@ -17,7 +17,7 @@ drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
 
 drivetrain.on(steering = 0, speed = 20)
 
-while True:
+while drivetrain.on():
     if ultrasonic_sensor_front.distance_centimeters <= 2.0:
         drivetrain.on(steering = 0, speed = 0)
         #stop robot if something is at front.
