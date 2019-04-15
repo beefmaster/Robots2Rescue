@@ -16,7 +16,7 @@ gyro = GyroSensor(INPUT_1)
 gyro.mode = GyroSensor.MODE_GYRO_ANG
 
 
-drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
+drivetrain = MoveSteering(OUTPUT_D, OUTPUT_B)
 
 
 
