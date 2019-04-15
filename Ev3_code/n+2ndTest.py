@@ -16,8 +16,8 @@ gyro.mode = GyroSensor.MODE_GYRO_ANG
 
 drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
 
-front_dist = ultrasonic_sensor_front.distance_centimeters.continuous
-side_dist = ultrasonic_sensor_side.distance_centimeters.continuous
+front_dist = ultrasonic_sensor_front.distance_centimeters_continuous
+side_dist = ultrasonic_sensor_side.distance_centimeters_continuous
 
 while True:
     if front_dist <= 10:
@@ -33,18 +33,21 @@ while True:
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 0)
 
-    if side_dist < 10:
-        drivetrain.on(steering = -20, speed = 10)
 
-    if side_dist > 20:
-        drivetrain.on(steering = 20, speed = 10)
 
-    else:
+    elif front_dist > 10:
         drivetrain.on(steering = 0, speed = 20)
+        if side_dist < 10:
+            drivetrain.on(steering = -20, speed = 10)
+
+        if side_dist > 20:
+            drivetrain.on(steering = 20, speed = 10)
+
+        else:
+            drivetrain.on(steering = 0, speed = 20)
 
 
 
 
 medMotor.on_for_rotations(SpeedPercent(50), 2)
-
 
