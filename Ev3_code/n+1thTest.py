@@ -21,8 +21,8 @@ drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
 
 
 while True:
-    if ultrasonic_sensor_front.distance_centimeters <= 5:
-        if ultrasonic_sensor_side.distance_centimeters <= 5:
+    if ultrasonic_sensor_front.distance_centimeters <= 10:
+        if ultrasonic_sensor_side.distance_centimeters <= 15:
             drivetrain.on(steering = -100, speed = 20)
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 0)
