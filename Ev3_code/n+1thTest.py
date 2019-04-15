@@ -27,8 +27,8 @@ while True:
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 0)
 
-        elif ultrasonic_sensor_side.distance_centimeters > 5:
-            drivetrain.on(steering = 100, speed = 10)
+        else:
+            drivetrain.on(steering = 100, speed = 20)
             gyro.wait_until_angle_changed_by(90)
             drivetrain.on(steering = 0, speed = 0)
 
