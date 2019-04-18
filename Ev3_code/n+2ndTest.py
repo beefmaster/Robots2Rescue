@@ -16,8 +16,8 @@ gyro.mode = GyroSensor.MODE_GYRO_ANG
 
 drivetrain = MoveSteering(OUTPUT_B, OUTPUT_D)
 
-front_dist = ultrasonic_sensor_front.distance_centimeters_continuous
-side_dist = ultrasonic_sensor_side.distance_centimeters_continuous
+front_dist = ultrasonic_sensor_front.distance_centimeters
+side_dist = ultrasonic_sensor_side.distance_centimeters
 
 while True:
     if front_dist <= 10:
