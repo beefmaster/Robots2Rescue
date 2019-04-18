@@ -39,7 +39,7 @@ while True:
         drivetrain.on(steering = 0, speed = 20)
         if side_dist < 10:
             drivetrain.on(steering = -20, speed = 10)
-
+            
         if side_dist > 20:
             drivetrain.on(steering = 20, speed = 10)
 
