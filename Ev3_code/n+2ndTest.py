@@ -35,19 +35,22 @@ while True:
 
 
 
-    elif front_dist > 10:
-        drivetrain.on(steering = 0, speed = 20)
-        if side_dist < 10:
-            drivetrain.on(steering = -20, speed = 10)
-            
-        if side_dist > 20:
-            drivetrain.on(steering = 20, speed = 10)
+
+
+while True:
+    if ultrasonic_sensor_front.distance_centimeters <= 10:
+        if ultrasonic_sensor_side.distance_centimeters <= 15:
+            drivetrain.on(steering = -100, speed = 20)
+            gyro.wait_until_angle_changed_by(90)
+            drivetrain.on(steering = 0, speed = 0)
 
         else:
-            drivetrain.on(steering = 0, speed = 20)
+            drivetrain.on(steering = 100, speed = 20)
+            gyro.wait_until_angle_changed_by(90)
+            drivetrain.on(steering = 0, speed = 0)
+
+    else:
+        drivetrain.on(steering = 0, speed = 20)
 
 
-
-
-medMotor.on_for_rotations(SpeedPercent(50), 2)
 
