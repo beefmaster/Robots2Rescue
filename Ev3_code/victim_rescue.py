@@ -21,15 +21,29 @@ cl.mode = 'COL-COLOR'
 us_front.mode = 'US-DIST-CM'
 us_side.mode = 'US-DIST-CM'
 
-# change LED colours when detecting true or false victims
 colors = ('red', 'blue')
 
 while True:
-    if cl.color == 5:
-        leds.set_color("LEFT", "GREEN")
-        leds.set_color("RIGHT", "GREEN")
-        medMotor.on_for_rotations(SpeedPercent(50), 2)
-    
-    elif cl.color == 2:
-        leds.set_color("LEFT", "RED")
-        leds.set_color("RIGHT", "RED")
+    if cl.color == 5 or cl.color == 2:
+            tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
+
+        if cl.color == 5    
+            # change LED colours to green if a true victim is detected
+            leds.set_color("LEFT", "GREEN")
+            leds.set_color("RIGHT", "GREEN")
+
+            # lower scoop 
+            medMotor.polarity = 'inversed'
+            medMotor.on_for_rotations(SpeedPercent(50), 2)
+
+            # move robot into position
+            tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 2)
+            tank_drive.on_for_rotations(SpeedPercent(20), SpeedPercent(-20), 1/5)
+
+            # lift up scoop
+            medMotor.polarity = 'normal'
+            medMotor.on_for_rotations(SpeedPercent(50), 2)
+        
+        elif cl.color == 2:
+            leds.set_color("LEFT", "RED")
+            leds.set_color("RIGHT", "RED")
