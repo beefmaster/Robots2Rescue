@@ -4,7 +4,5 @@ from ev3dev2.led import Leds
 
 # on carpet use this:
 
-while 1: 
     tank_drive = MoveTank(OUTPUT_B, OUTPUT_D)
-    tank_drive.on_for_rotations(SpeedPercent(40), SpeedPercent(-40), 42/50)
-    tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 3)
+    tank_drive.on_for_rotations(SpeedPercent(40), SpeedPercent(-40), 41/50)
