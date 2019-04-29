@@ -27,25 +27,21 @@ colors = ('red', 'blue')
 while True:
 
 
-    # if the robot keeps spinning and won't stop, set to rotate for a few seconds.
-    if cl.color == 5:
-        tank_drive.on_for_Seconds(SpeedPercent(0), SpeedPercent(0), 7)
+        # if the robot keeps spinning and won't stop, set to rotate for a few seconds.
+	    if cl.color == 5:
+	        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 5)
+	       
+	        # change LED colours to green if a true victim is detected
+	        leds.set_color("LEFT", "GREEN")
+                leds.set_color("RIGHT", "GREEN")
 
-        # change LED colours to green if a true victim is detected
-        leds.set_color("LEFT", "GREEN")
-        leds.set_color("RIGHT", "GREEN")
+	
+	
+	    elif cl.color == 2:
+	        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 5)
 
-
-
-    elif cl.color == 2:
-        tank_drive.on_for_Seconds(SpeedPercent(0), SpeedPercent(0), 7)
-        leds.set_color("LEFT", "RED")
-        leds.set_color("RIGHT", "RED")
-
-    else:
-        tank_drive.on(SpeedPercent(50), SpeedPercent(0))
-
-
-    # the section below only works if the lifted water bottle blocks the front ultrasonic sensor, which is probably so far the
-    # only way of telling whether a victim has been picked up
-
+	        leds.set_color("LEFT", "RED")
+	        leds.set_color("RIGHT", "RED")
+        else :
+            tank_drive.on(SpeedPercent(50), SpeedPercent(0))
+            
