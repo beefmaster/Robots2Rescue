@@ -14,7 +14,7 @@ cl = ColorSensor(INPUT_3)
 leds = Leds()
 medMotor = MediumMotor(OUTPUT_C)
 
-# put color sensor in COL-COLOR mode 
+# put color sensor in COL-COLOR mode
 cl.mode = 'COL-COLOR'
 
 # put ultrasonic sensor in distance (cm) mode
@@ -23,77 +23,29 @@ us_side.mode = 'US-DIST-CM'
 
 colors = ('red', 'blue')
 
-while (1):
-    tank_drive.on_for_seconds(SpeedPercent(50), SpeedPercent(0), 4)
-    tank_drive.on_for_seconds(SpeedPercent(15), SpeedPercent(15), 3)
-    tank_drive.on_for_seconds(SpeedPercent(25), SpeedPercent(0), 3)
-    tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(25), 3)
-    tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(25), 3)
-    tank_drive.on_for_seconds(SpeedPercent(25), SpeedPercent(0), 3)
+
+while True:
+
 
     # if the robot keeps spinning and won't stop, set to rotate for a few seconds.
     if cl.color == 5:
         tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
- 
+
         # change LED colours to green if a true victim is detected
         leds.set_color("LEFT", "GREEN")
         leds.set_color("RIGHT", "GREEN")
 
-        # lower scoop 
-        medMotor.polarity = 'inversed'
-        medMotor.on_for_rotations(SpeedPercent(50), 2)
 
-        # move robot into position
-        tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 2)
-        tank_drive.on_for_rotations(SpeedPercent(20), SpeedPercent(-20), 1/5)
-        tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
-        # time of robot driving forward (3.5) needs to be tested to finalize. 
-    
 
-        # lift up scoop
-        medMotor.polarity = 'normal'
-        medMotor.on_for_rotations(SpeedPercent(50), 2)
-        
-        # drive back, so that if rescue fails it can start over at original position
-        tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
-        
     elif cl.color == 2:
+        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
         leds.set_color("LEFT", "RED")
         leds.set_color("RIGHT", "RED")
-            
-    
-    # the section below only works if the lifted water bottle blocks the front ultrasonic sensor, which is probably so far the 
+
+    else:
+        tank_drive.on(SpeedPercent(50), SpeedPercent(0))
+
+
+    # the section below only works if the lifted water bottle blocks the front ultrasonic sensor, which is probably so far the
     # only way of telling whether a victim has been picked up
-    
-    if us_front.distance_centimeters > 5:
-   
-        tank_drive.on_for_secods(SpeedPercent(50), SpeedPercent(0), 10)
-        #only checking for 10 secs
-        if cl.color == 5 or cl.color == 2:
-            tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
 
-            if cl.color == 5:   
-                # change LED colours to green if a true victim is detected
-                leds.set_color("LEFT", "GREEN")
-                leds.set_color("RIGHT", "GREEN")
-
-                # lower scoop 
-                medMotor.polarity = 'inversed'
-                medMotor.on_for_rotations(SpeedPercent(50), 2)
-
-                # move robot into position
-                tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 2)
-                tank_drive.on_for_rotations(SpeedPercent(20), SpeedPercent(-20), 1/5)
-                tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
-                # time of robot driving forward needs to be tested to finalize. 
-
-                # lift up scoop
-                medMotor.polarity = 'normal'
-                medMotor.on_for_rotations(SpeedPercent(50), 2)
-            
-                # drive back, so that if rescue fails it can start over at original position
-                tanl_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
-        
-            elif cl.color == 2:
-                leds.set_color("LEFT", "RED")
-                leds.set_color("RIGHT", "RED")
