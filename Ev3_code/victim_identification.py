@@ -29,7 +29,7 @@ while True:
 
     # if the robot keeps spinning and won't stop, set to rotate for a few seconds.
     if cl.color == 5:
-        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
+        tank_drive.on(SpeedPercent(0), SpeedPercent(0))
 
         # change LED colours to green if a true victim is detected
         leds.set_color("LEFT", "GREEN")
@@ -38,7 +38,7 @@ while True:
 
 
     elif cl.color == 2:
-        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
+        tank_drive.on(SpeedPercent(0), SpeedPercent(0))
         leds.set_color("LEFT", "RED")
         leds.set_color("RIGHT", "RED")
 
