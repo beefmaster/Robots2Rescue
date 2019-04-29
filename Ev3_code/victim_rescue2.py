@@ -23,38 +23,43 @@ us_side.mode = 'US-DIST-CM'
 
 colors = ('red', 'blue')
 
-while True:
-    #tank_drive.on(SpeedPercent(50), SpeedPercent(0))
+while (1):
+    tank_drive.on_for_seconds(SpeedPercent(50), SpeedPercent(0), 4)
+    tank_drive.on_for_seconds(SpeedPercent(15), SpeedPercent(15), 3)
+    tank_drive.on_for_seconds(SpeedPercent(25), SpeedPercent(0), 3)
+    tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(25), 3)
+    tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(25), 3)
+    tank_drive.on_for_seconds(SpeedPercent(25), SpeedPercent(0), 3)
+
     # if the robot keeps spinning and won't stop, set to rotate for a few seconds.
-    if cl.color == 5 or cl.color == 2:
-        #tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
+    if cl.color == 5:
+        tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
+ 
+        # change LED colours to green if a true victim is detected
+        leds.set_color("LEFT", "GREEN")
+        leds.set_color("RIGHT", "GREEN")
 
-        if cl.color == 5: 
-            # change LED colours to green if a true victim is detected
-            leds.set_color("LEFT", "GREEN")
-            leds.set_color("RIGHT", "GREEN")
+        # lower scoop 
+        medMotor.polarity = 'inversed'
+        medMotor.on_for_rotations(SpeedPercent(50), 2)
 
-            # lower scoop 
-            #medMotor.polarity = 'inversed'
-            #medMotor.on_for_rotations(SpeedPercent(50), 2)
+        # move robot into position
+        tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 2)
+        tank_drive.on_for_rotations(SpeedPercent(20), SpeedPercent(-20), 1/5)
+        tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
+        # time of robot driving forward (3.5) needs to be tested to finalize. 
+    
 
-            # move robot into position
-            #tank_drive.on_for_seconds(SpeedPercent(-20), SpeedPercent(-20), 2)
-            #tank_drive.on_for_rotations(SpeedPercent(20), SpeedPercent(-20), 1/5)
-            #tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
-            # time of robot driving forward (3.5) needs to be tested to finalize. 
-       
-
-            # lift up scoop
-            #medMotor.polarity = 'normal'
-            #medMotor.on_for_rotations(SpeedPercent(50), 2)
-            
-            # drive back, so that if rescue fails it can start over at original position
-            #tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
+        # lift up scoop
+        medMotor.polarity = 'normal'
+        medMotor.on_for_rotations(SpeedPercent(50), 2)
         
-        elif cl.color == 2:
-            leds.set_color("LEFT", "RED")
-            leds.set_color("RIGHT", "RED")
+        # drive back, so that if rescue fails it can start over at original position
+        tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
+        
+    elif cl.color == 2:
+        leds.set_color("LEFT", "RED")
+        leds.set_color("RIGHT", "RED")
             
     
     # the section below only works if the lifted water bottle blocks the front ultrasonic sensor, which is probably so far the 
@@ -62,12 +67,12 @@ while True:
     
     if us_front.distance_centimeters > 5:
    
-        tank_drive.on_for_seconds(SpeedPercent(50), SpeedPercent(0), 10)
+        tank_drive.on_for_secods(SpeedPercent(50), SpeedPercent(0), 10)
         #only checking for 10 secs
         if cl.color == 5 or cl.color == 2:
             tank_drive.on_for_seconds(SpeedPercent(0), SpeedPercent(0), 2)
 
-            if cl.color == 5:    
+            if cl.color == 5:   
                 # change LED colours to green if a true victim is detected
                 leds.set_color("LEFT", "GREEN")
                 leds.set_color("RIGHT", "GREEN")
@@ -87,7 +92,7 @@ while True:
                 medMotor.on_for_rotations(SpeedPercent(50), 2)
             
                 # drive back, so that if rescue fails it can start over at original position
-                tank_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
+                tanl_drive.on_for_seconds(SpeedPercent(20), SpeedPercent(20), 3.5)
         
             elif cl.color == 2:
                 leds.set_color("LEFT", "RED")
